@@ -1,0 +1,28 @@
+<% if @results == true %>
+	<% if @title.count > 0 %>
+		<h1>Matched Titles</h1>
+	<% end %>
+	<% sortedTitles = groupMusic(@title) %>
+	<% if sortedTitles.count > 0 %>
+		<% sortedTitles.each_key do |artist| %>
+			<h2><%= artist %></h2>
+			<% sortedTitles[artist].each do |value| %>
+				<%= value.html_safe %><br/>
+			<% end %>
+		<% end %>
+	<% end %>
+	<% if @artist.count > 0 %>
+		<h1>Matched Artists</h1>
+	<% end %>
+	<% sortedArtists = groupMusic(@artist) %>
+	<% if sortedArtists.count > 0 %>
+		<% sortedArtists.each_key do |artist| %>
+			<h2><%= artist %></h2>
+			<% sortedArtists[artist].each do |value| %>
+				<%= value.html_safe %><br/>
+			<% end %>
+		<% end %>
+	<% end %>
+<% else %>
+	<h1>No results found</h1>
+<% end %>
