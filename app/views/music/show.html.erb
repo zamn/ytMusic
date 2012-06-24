@@ -2,7 +2,7 @@
 	<% if @title.count > 0 %>
 		<h1>Matched Titles</h1>
 	<% end %>
-	<% sortedTitles = groupMusic(@title) %>
+	<% sortedTitles = MusicController.groupMusic(@title) %>
 	<% if sortedTitles.count > 0 %>
 		<% sortedTitles.each_key do |artist| %>
 			<h2><%= artist %></h2>
@@ -14,7 +14,7 @@
 	<% if @artist.count > 0 %>
 		<h1>Matched Artists</h1>
 	<% end %>
-	<% sortedArtists = groupMusic(@artist) %>
+	<% sortedArtists = MusicController.groupMusic(@artist) %>
 	<% if sortedArtists.count > 0 %>
 		<% sortedArtists.each_key do |artist| %>
 			<h2><%= artist %></h2>

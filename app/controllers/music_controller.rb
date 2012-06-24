@@ -7,13 +7,13 @@ class MusicController < ApplicationController
 		@results = false
 		if !params[:term].empty?
 			@results = true
-			@title = Songs.where("title = ?", params[:term]) 
-			@artist = Songs.where("artist = ?", params[:term])
+			@title = Song.where("title = ?", params[:term]) 
+			@artist = Song.where("artist = ?", params[:term])
 			puts @title.class().to_s + " "  + @artist.class().to_s
 		end
 	end
 
-	define_method groupMusic(entry) do
+	def self.groupMusic(entry)
 		sortedArtists = {}
 		entry.each do |song| 
 			if sortedArtists.has_key?(song.artist) 
