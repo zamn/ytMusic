@@ -6,10 +6,8 @@
 </form>
 
 <div id="results">
-<%= @songs.class %>
   <% @songs.each do |song| %>
-<%= song[:artist] %>
-    <%= song.title %><br/>
-    <%= song.artist %><br/><br/>
+    <%= song.title %> - displays artist - song name<br/>
+    <%= song.artist %> - displays nothing<br/><br/>
   <% end %>
 </div>
