@@ -1,7 +1,15 @@
+<h1>YOUR MUSIC</h1>
+
 <form id="searchMusic">
 	<input type="text" id="term"/>
 	<input type="button" id="searchButton" value="Gogo!"/>
 </form>
 
 <div id="results">
+<%= @songs.class %>
+  <% @songs.each do |song| %>
+<%= song[:artist] %>
+    <%= song.title %><br/>
+    <%= song.artist %><br/><br/>
+  <% end %>
 </div>

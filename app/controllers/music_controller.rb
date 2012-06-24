@@ -1,6 +1,7 @@
 class MusicController < ApplicationController
 
-	def home
+	def index
+      @songs = Song.order("artist ASC");
 	end
 
 	def show

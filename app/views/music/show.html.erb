@@ -19,7 +19,7 @@
 		<% sortedArtists.each_key do |artist| %>
 			<h2><%= artist %></h2>
 			<% sortedArtists[artist].each do |value| %>
-				<%= value.html_safe %><br/>
+				<%= link_to value.html_safe, "#", :class => "musicResults"  %><br/>
 			<% end %>
 		<% end %>
 	<% end %>
