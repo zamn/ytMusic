@@ -6,8 +6,18 @@
 </form>
 
 <div id="results">
+  <% temp = nil %>
   <% @songs.each do |song| %>
-    <%= song.title %> - displays artist - song name<br/>
-    <%= song.artist %> - displays nothing<br/><br/>
+      <% if !temp.eql?(song.artist) %>
+          <% if temp == nil %>
+            <%= link_to "Misc", "#", :class => "artist" %><br/>
+          <% else %>
+            <%= link_to song.artist, "#", :class => "artist" %><br/>
+          <% end %>
+      <% end %>
+    <div class="title">
+    <%= song.title.html_safe %><br/>
+    </div>
+    <% temp = song.artist %>
   <% end %>
 </div>
