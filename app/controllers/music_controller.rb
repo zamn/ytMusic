@@ -1,7 +1,7 @@
 class MusicController < ApplicationController
 
 	def index
-      @songs = Song.order("artist ASC");
+      @songs = Song.order("artist ASC")
 	end
 
 	def show
@@ -10,7 +10,6 @@ class MusicController < ApplicationController
 			@results = true
 			@title = Song.where("title = ?", params[:term]) 
 			@artist = Song.where("artist = ?", params[:term])
-			puts @title.class().to_s + " "  + @artist.class().to_s
 		end
 	end
 

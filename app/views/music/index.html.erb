@@ -24,7 +24,12 @@
           <div class="titles">
         <% end %>
       <% end %>
-      <%= song.title.html_safe %><br/>
+      <%= link_to song.title.html_safe, "#" %><br/>
+      <div class="video">
+      <% if !song.yturl.nil? %>
+        <%= song.yturl %>
+      <% end %>
+      </div>
     <% temp = song.artist %>
     <% count = count + 1 %>
   <% end %>

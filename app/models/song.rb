@@ -1,3 +1,3 @@
 class Song < ActiveRecord::Base
-	attr_accessible :title, :artist, :yturl
+  attr_accessible :artist, :title, :yturl
 end

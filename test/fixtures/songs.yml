@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyText
+  artist: MyText
+  yturl: MyText
+
+two:
+  title: MyText
+  artist: MyText
+  yturl: MyText
