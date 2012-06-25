@@ -18,10 +18,10 @@
         <div class="song">
         <% if temp == nil %>
           <%= link_to "Misc", "#", :class => "artist" %><br/>
-          <div class="title">
+          <div class="titles">
         <% else %>
           <%= link_to song.artist, "#", :class => "artist" %><br/>
-          <div class="title">
+          <div class="titles">
         <% end %>
       <% end %>
       <%= song.title.html_safe %><br/>
