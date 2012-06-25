@@ -26,10 +26,17 @@ $(".artist").click(function() {
   }
   
 });
-
-$(".titles").children().click(function() {
+// youtube.com/embed/watchcode
+$(".titles").children().children("a").click(function() {
   event.preventDefault(); 
-  console.log($(this));
+  var vidurl = $(this).parent().children(".videourl").text();
+  var video = $(this).parent().children(".video");
+  if (!video.is(":visible")) {
+    video.html("<iframe src=\"" + vidurl + "\" width=640 height=480 frameborder=0></iframe>").show();
+  }
+  else {
+    video.hide();  
+  }
 });
 
 $.ajaxSetup ({

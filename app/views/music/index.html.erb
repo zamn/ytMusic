@@ -3,7 +3,7 @@
 <form id="searchMusic">
 	<input type="text" id="term"/>
 	<input type="button" id="searchButton" value="Gogo!"/>
-</form>
+</form><br/>
 
 <div id="results">
   <% temp = nil %>
@@ -24,11 +24,14 @@
           <div class="titles">
         <% end %>
       <% end %>
-      <%= link_to song.title.html_safe, "#" %><br/>
-      <div class="video">
-      <% if !song.yturl.nil? %>
-        <%= song.yturl %>
-      <% end %>
+      <div>
+        <%= link_to song.title.html_safe, "#" %><br/>
+        <div class="videourl">
+        <% if !song.yturl.nil? %>
+          <%= song.yturl %>
+        <% end %>
+        </div>
+        <div class="video"></div>
       </div>
     <% temp = song.artist %>
     <% count = count + 1 %>

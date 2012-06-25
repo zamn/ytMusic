@@ -7,8 +7,12 @@ body {
   display:none;
 }
 
-.video {
+.videourl {
   display:none;
+}
+
+.video {
+	display:none;
 }
 
 A:link {
