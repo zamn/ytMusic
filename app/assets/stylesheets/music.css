@@ -1,7 +1,36 @@
+body {
+	font-family: Helvetica,Arial;
+	font-size:14px;
+}
+
 .titles {
   display:none;
 }
 
 .video {
   display:none;
+}
+
+A:link {
+	text-decoration: none;
+	color:black;
+}
+
+A:visited {
+	text-decoration: none;
+	color:black;
+}
+
+A:active {
+	text-decoration: none;
+	color:black;
+}
+
+A:hover {
+	text-decoration: none;
+	font-weight:bold;
+}
+
+.titles {
+	margin-left:50px;	
 }

@@ -16,6 +16,7 @@ function getURL(song) {
 
 
 $(".artist").click(function() {
+  event.preventDefault(); 
   var titles = $(this).parent().children(".titles");
   if (titles.is(":visible")) {
     titles.hide();
@@ -27,6 +28,7 @@ $(".artist").click(function() {
 });
 
 $(".titles").children().click(function() {
+  event.preventDefault(); 
   console.log($(this));
 });
 
