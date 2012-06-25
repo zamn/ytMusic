@@ -7,17 +7,25 @@
 
 <div id="results">
   <% temp = nil %>
+  <% count = 0 %>
   <% @songs.each do |song| %>
       <% if !temp.eql?(song.artist) %>
-          <% if temp == nil %>
-            <%= link_to "Misc", "#", :class => "artist" %><br/>
-          <% else %>
-            <%= link_to song.artist, "#", :class => "artist" %><br/>
-          <% end %>
+        <% if count > 0 %>
+          </div>
+          </div>
+          <% count = 0 %>
+        <% end %>
+        <div class="song">
+        <% if temp == nil %>
+          <%= link_to "Misc", "#", :class => "artist" %><br/>
+          <div class="title">
+        <% else %>
+          <%= link_to song.artist, "#", :class => "artist" %><br/>
+          <div class="title">
+        <% end %>
       <% end %>
-    <div class="title">
-    <%= song.title.html_safe %><br/>
-    </div>
+      <%= song.title.html_safe %><br/>
     <% temp = song.artist %>
+    <% count = count + 1 %>
   <% end %>
 </div>
