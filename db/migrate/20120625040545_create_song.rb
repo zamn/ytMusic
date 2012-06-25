@@ -1,9 +1,9 @@
 class CreateSong < ActiveRecord::Migration
   def up
     create_table :song do |t|
-      t.text :title
-      t.text :artist
-      t.text :yturl
+      t.string :title
+      t.string :artist
+      t.string :yturl
 
       t.timestamps
     end
