@@ -14,3 +14,15 @@ function getURL(song) {
   console.log(videoInfo);
 }
 
+
+
+$(".artist").click(function() {
+  var titles = $(this).parent().children(".titles");
+  if (titles.is(":visible")) {
+    titles.hide();
+  }
+  else {
+    titles.show();
+  }
+  
+});
