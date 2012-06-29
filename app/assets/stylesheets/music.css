@@ -3,8 +3,17 @@ body {
 	font-size:14px;
 }
 
+
+#results {
+	border-radius:10px;
+	background-color:#CCCCCC;
+	padding-left:10px;
+	padding-top:10px;
+}
+
 .titles {
-  display:none;
+	background-color:;
+	display:none;
 }
 
 .videourl {

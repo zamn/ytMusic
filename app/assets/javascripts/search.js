@@ -26,17 +26,21 @@ $(".artist").click(function() {
   }
   
 });
-// youtube.com/embed/watchcode
+
 $(".titles").children().children("a").click(function() {
   event.preventDefault(); 
   var vidurl = $(this).parent().children(".videourl").text();
   var video = $(this).parent().children(".video");
   if (!video.is(":visible")) {
-    video.html("<iframe src=\"" + vidurl + "\" width=640 height=480 frameborder=0></iframe>").show();
+    video.html("<iframe src=\"" + vidurl + "\" width=340 height=180 frameborder=0></iframe>").show();
   }
   else {
     video.hide();  
   }
+});
+
+$(".video").children().click(function() {
+  alert("you clicked");
 });
 
 $.ajaxSetup ({
@@ -58,3 +62,6 @@ $("#term").keypress(function(e) {
   }
 });
 
+$("#Shuffle").click(function() {
+  $(".artist").contains(a, 'Grizzly Bear').ScrollTo();
+});

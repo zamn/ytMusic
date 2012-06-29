@@ -8,8 +8,8 @@ class MusicController < ApplicationController
 		@results = false
 		if !params[:term].empty?
 			@results = true
-			@title = Song.where("title = ?", params[:term]) 
-			@artist = Song.where("artist = ?", params[:term])
+			@title = Song.where("title LIKE ?", "%#{params[:term]}%") 
+			@artist = Song.where("artist LIKE ?", "%#{params[:term]}%")
 		end
 	end
 
