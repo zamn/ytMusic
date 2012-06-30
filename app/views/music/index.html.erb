@@ -10,6 +10,7 @@
 <div id="results">
   <% temp = nil %>
   <% count = 0 %>
+  <% idcounter = 0 %>
   <% @songs.each do |song| %>
       <% if !temp.eql?(song.artist) %>
         <% if count > 0 %>
@@ -33,9 +34,10 @@
           <%= song.yturl %>
         <% end %>
         </div>
-        <div class="video"></div>
+        <%= content_tag :div, "", { :id => "video-#{idcounter}", :style => "display:none;" } %>
       </div>
     <% temp = song.artist %>
     <% count = count + 1 %>
+    <% idcounter = idcounter + 1 %>
   <% end %>
 </div>

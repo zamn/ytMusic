@@ -1,20 +1,3 @@
-$(".musicResults").click(function() {
-  getURL($(".musicResults").val());
-});
-
-function getURL(song) {
-   var videoInfo = [];
-   $.getJSON("https://gdata.youtube.com/feeds/api/videos?q=" + song + "&alt=json-in-script&max-results=1&callback=?", 
-    function(data) {
-      var url = data.feed.entry[0].link[0].href;
-      var title = data.feed.entry[0].title.$t;
-      //videoInfo = [url, title];
-      videoInfo[0] = "titties"; 
-  });
-  console.log(videoInfo);
-}
-
-
 $(".artist").click(function() {
   event.preventDefault(); 
   var titles = $(this).parent().children(".titles");
@@ -27,21 +10,27 @@ $(".artist").click(function() {
   
 });
 
-$(".titles").children().children("a").click(function() {
-  event.preventDefault(); 
-  var vidurl = $(this).parent().children(".videourl").text();
-  var video = $(this).parent().children(".video");
+$('#results .titles').on('click', 'a', function(event) {
+  event.preventDefault();
+  var vidurl = $(this).siblings(".videourl").text();
+  var video = $(this).siblings('div[id^="video"]');
   if (!video.is(":visible")) {
-    video.html("<iframe src=\"" + vidurl + "\" width=340 height=180 frameborder=0></iframe>").show();
+    var params = { allowScriptAccess: "always" };
+    var atts = { id: "ytplayer" };
+    var videoid = video.attr('id');
+    swfobject.embedSWF(vidurl, videoid, "540", "380", "8", null, null, params, atts);
+    $(this).css("color", "red");
+    video.show();
   }
   else {
-    video.hide();  
+    $(this).css("color", "black");
+    video.hide();
   }
 });
 
-$(".video").children().click(function() {
-  alert("you clicked");
-});
+function onYoutubePlayerReady(playerId) {
+  console.log("blurb");
+}
 
 $.ajaxSetup ({
   cache: false
