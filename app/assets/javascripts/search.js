@@ -14,22 +14,26 @@ $('#results .titles').on('click', 'a', function(event) {
   event.preventDefault();
   var vidurl = $(this).siblings(".videourl").text();
   var video = $(this).siblings('div[id^="video"]');
-  if (!video.is(":visible")) {
+  var embed = $(this).siblings("#ytplayer");
+  if (!video.is(":visible") || !embed.is(":visible")) {
     var params = { allowScriptAccess: "always" };
     var atts = { id: "ytplayer" };
     var videoid = video.attr('id');
-    swfobject.embedSWF(vidurl, videoid, "540", "380", "8", null, null, params, atts);
+    swfobject.embedSWF(vidurl, videoid, "540", "380", "8", null, null, params, atts, onYoutubePlayerReady);
     $(this).css("color", "red");
     video.show();
+    embed.css("display", "block");
   }
   else {
+    embed.css("display", "none");
     $(this).css("color", "black");
     video.hide();
   }
 });
 
 function onYoutubePlayerReady(playerId) {
-  console.log("blurb");
+  console.log(document.getElementById("ytplayer"));
+  console.log(playerId);
 }
 
 $.ajaxSetup ({
