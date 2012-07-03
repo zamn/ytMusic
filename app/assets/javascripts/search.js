@@ -16,9 +16,27 @@ $(".artist").click(function() {
 
 $('#shuffle').click(function() {
   $.getJSON('music.json', null, function(data) {
-    console.log(data);
     var rand = Math.floor(Math.random()*data);
-    console.log($("#video-" + rand).siblings());
+    var song = $("#video-" + rand);
+    var vidurl = song.siblings(".videourl").text();
+    var videoid = song.attr('id');
+    vidurl = $.trim(vidurl);
+    song.parent().parent().show();
+    console.log(song.siblings("a"));
+    song.siblings("a").ScrollTo({
+      duration: 2000,
+      durationMode: 'all'
+    });
+    player = new YT.Player(videoid, {
+      height: '390',
+      width: '540',
+      videoId: vidurl,
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
+    console.log(song.siblings());
   });
 });
 
@@ -45,6 +63,7 @@ console.log(vidurl);
 
 function onPlayerReady(event) {
   console.log("ready for blastoff!");
+  event.target.playVideo();
 }
 
 function onPlayerStateChange(event) {
