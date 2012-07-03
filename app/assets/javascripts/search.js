@@ -1,3 +1,7 @@
+$.ajaxSetup ({
+  cache: false
+});
+
 $(".artist").click(function() {
   event.preventDefault(); 
   var titles = $(this).parent().children(".titles");
@@ -22,12 +26,7 @@ $('#shuffle').click(function() {
     success: function(data) {
       console.log(data);
       console.log("TEST");
-    },
-    contentType: "application/json; charset=utf-8",
-    error: function() {
-      console.log("derp");
-    },
-    dataType: 'html'
+    }
   });
 });
 
@@ -60,9 +59,6 @@ function onPlayerStateChange(event) {
   console.log("state changed :o ~ " + event);
 }
 
-$.ajaxSetup ({
-  cache: false
-});
 
 $('#searchMusic').on('submit',function(ev) { 
   ev.preventDefault();
