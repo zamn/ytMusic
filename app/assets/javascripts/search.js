@@ -14,19 +14,11 @@ $(".artist").click(function() {
   
 });
 
-$('#shuffle').ajaxError(function() {
-  console.log('error');
-});
-
 $('#shuffle').click(function() {
-  var rand = Math.floor(Math.random()*11);
-  console.log($("#video-" + rand).siblings());
-  $.ajax({
-    url: '/music/',
-    success: function(data) {
-      console.log(data);
-      console.log("TEST");
-    }
+  $.getJSON('music.json', null, function(data) {
+    console.log(data);
+    var rand = Math.floor(Math.random()*data);
+    console.log($("#video-" + rand).siblings());
   });
 });
 
@@ -75,6 +67,6 @@ $("#term").keypress(function(e) {
   }
 });
 
-$("#Shuffle").click(function() {
-  $(".artist").contains(a, 'Grizzly Bear').ScrollTo();
-});
+//$("#Shuffle").click(function() {
+//  $(".artist").contains(a, 'Grizzly Bear').ScrollTo();
+//});
