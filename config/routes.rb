@@ -1,6 +1,7 @@
 Ytmusic::Application.routes.draw do
 
-  resources :music
+  resources :music do
+  end
 
   root :to => "music#index"
 

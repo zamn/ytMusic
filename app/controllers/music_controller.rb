@@ -1,7 +1,14 @@
 class MusicController < ApplicationController
 
 	def index
-      @songs = Song.order("artist ASC")
+    @songs = Song.order("artist ASC")
+    @count = Song.all.count
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @count, :status => :ok }
+    end
+
 	end
 
 	def show

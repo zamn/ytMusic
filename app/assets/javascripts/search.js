@@ -10,30 +10,54 @@ $(".artist").click(function() {
   
 });
 
+$('#shuffle').ajaxError(function() {
+  console.log('error');
+});
+
+$('#shuffle').click(function() {
+  var rand = Math.floor(Math.random()*11);
+  console.log($("#video-" + rand).siblings());
+  $.ajax({
+    url: '/music/',
+    success: function(data) {
+      console.log(data);
+      console.log("TEST");
+    },
+    contentType: "application/json; charset=utf-8",
+    error: function() {
+      console.log("derp");
+    },
+    dataType: 'html'
+  });
+});
+
 $('#results .titles').on('click', 'a', function(event) {
   event.preventDefault();
   var vidurl = $(this).siblings(".videourl").text();
+  vidurl = $.trim(vidurl);
   var video = $(this).siblings('div[id^="video"]');
-  var embed = $(this).siblings("#ytplayer");
-  if (!video.is(":visible") || !embed.is(":visible")) {
-    var params = { allowScriptAccess: "always" };
-    var atts = { id: "ytplayer" };
-    var videoid = video.attr('id');
-    swfobject.embedSWF(vidurl, videoid, "540", "380", "8", null, null, params, atts, onYoutubePlayerReady);
-    $(this).css("color", "red");
-    video.show();
-    embed.css("display", "block");
-  }
-  else {
-    embed.css("display", "none");
-    $(this).css("color", "black");
-    video.hide();
-  }
+  var videoid = video.attr('id');
+console.log(vidurl);
+  player = new YT.Player(videoid, {
+      height: '390',
+      width: '540',
+      videoId: vidurl,
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+  });
+  $(this).css("color", "red");
+  console.log(video);
+  video.show();
 });
 
-function onYoutubePlayerReady(playerId) {
-  console.log(document.getElementById("ytplayer"));
-  console.log(playerId);
+function onPlayerReady(event) {
+  console.log("ready for blastoff!");
+}
+
+function onPlayerStateChange(event) {
+  console.log("state changed :o ~ " + event);
 }
 
 $.ajaxSetup ({
