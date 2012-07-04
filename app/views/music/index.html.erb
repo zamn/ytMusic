@@ -35,10 +35,10 @@
         <% end %>
         </div>
         <%= content_tag :div, "", { :id => "video-#{idcounter}" } %>
-        <input id="invalid" class="invalid" type="button" value="Not the right song!"/>
+        <input class="invalid" class="invalid" type="button" value="Not the right song!"/>
         <div class="controls">
-          <input id="back" type="button" value="<<"/>
-          <input id="forward" type="button" value=">>"/>
+          <input class="back" type="button" value="<<"/>
+          <input class="forward" type="button" value=">>"/>
         </div>
       </div>
     <% temp = song.artist %>

@@ -1,5 +1,54 @@
+var shuffle = false;
+var fstack = [];
+var pstack = [];
+
 $.ajaxSetup ({
   cache: false
+});
+
+function nextSong() {
+  $.getJSON('music.json', null, function(data) {
+    var rand = Math.floor(Math.random()*data);
+    var song = $("#video-" + rand);
+    var vidurl = $.trim(song.siblings(".videourl").text());
+    var videoid = song.attr('id');
+    song.parent().parent().show();
+    console.log(song.siblings());
+    song.siblings("a").ScrollTo({
+      duration: 2000,
+      durationMode: 'all'
+    });
+    song.siblings(".controls").show();
+    player = new YT.Player(videoid, {
+      height: '390',
+      width: '540',
+      videoId: vidurl,
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
+    console.log(player);
+  });
+}
+
+function onPlayerReady(event) {
+  console.log("ready for blastoff!");
+  event.target.playVideo();
+}
+
+function onPlayerStateChange(event) {
+  console.log("state changed :o ~ " + event);
+}
+
+$(".back").click(function() {
+  if (shuffle)
+    lastSong();
+});
+
+$(".forward").click(function() {
+  if (shuffle)
+    nextSong();
 });
 
 $(".artist").click(function() {
@@ -15,29 +64,9 @@ $(".artist").click(function() {
 });
 
 $('#shuffle').click(function() {
-  $.getJSON('music.json', null, function(data) {
-    var rand = Math.floor(Math.random()*data);
-    var song = $("#video-" + rand);
-    var vidurl = song.siblings(".videourl").text();
-    var videoid = song.attr('id');
-    vidurl = $.trim(vidurl);
-    song.parent().parent().show();
-    console.log(song.siblings("a"));
-    song.siblings("a").ScrollTo({
-      duration: 2000,
-      durationMode: 'all'
-    });
-    player = new YT.Player(videoid, {
-      height: '390',
-      width: '540',
-      videoId: vidurl,
-      events: {
-        'onReady': onPlayerReady,
-        'onStateChange': onPlayerStateChange
-      }
-    });
-    console.log(song.siblings());
-  });
+  shuffle = true;
+  if (shuffle)
+    nextSong();
 });
 
 $('#results .titles').on('click', 'a', function(event) {
@@ -61,16 +90,6 @@ console.log(vidurl);
   video.show();
 });
 
-function onPlayerReady(event) {
-  console.log("ready for blastoff!");
-  event.target.playVideo();
-}
-
-function onPlayerStateChange(event) {
-  console.log("state changed :o ~ " + event);
-}
-
-
 $('#searchMusic').on('submit',function(ev) { 
   ev.preventDefault();
 });
@@ -85,7 +104,3 @@ $("#term").keypress(function(e) {
     $("#results").load(loadUrl, "term=" + $("#term").val());
   }
 });
-
-//$("#Shuffle").click(function() {
-//  $(".artist").contains(a, 'Grizzly Bear').ScrollTo();
-//});
