@@ -80,21 +80,26 @@ function onPlayerReady(event) {
 }
 
 function onPlayerStateChange(event) {
-  console.log("state changed :o ~ " + event);
-  console.log(event.target.c.id);
+  console.log(event.data);
+  if (shuffle()) {
+    if (event.data == YT.PlayerState.ENDED) {
+      removePlayers();
+      setTimeout(nextSong(), 3000);
+    }
+  } 
 }
 
 $(".back").click(function() {
   if (pstack.length > 0)
     removePlayers();
   if (shuffle())
-    prevSong();
+    setTimeout(prevSong(), 3000);
 });
 
 $(".forward").click(function() {
   removePlayers();
   if (shuffle())
-    nextSong();
+    setTimeout(nextSong(), 3000);
 });
 
 $(".artist").click(function() {
