@@ -28,13 +28,18 @@
         <% end %>
       <% end %>
       <div>
-        <%= link_to song.title.html_safe, "#" %><br/>
+        <%= link_to song.title.html_safe, "#", :class => "title_link" %><br/>
         <div class="videourl">
         <% if !song.yturl.nil? %>
           <%= song.yturl %>
         <% end %>
         </div>
         <%= content_tag :div, "", { :id => "video-#{idcounter}" } %>
+        <input id="invalid" class="invalid" type="button" value="Not the right song!"/>
+        <div class="controls">
+          <input id="back" type="button" value="<<"/>
+          <input id="forward" type="button" value=">>"/>
+        </div>
       </div>
     <% temp = song.artist %>
     <% count = count + 1 %>

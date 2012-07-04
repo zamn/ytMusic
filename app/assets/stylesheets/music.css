@@ -3,6 +3,13 @@ body {
 	font-size:14px;
 }
 
+.controls {
+  display:none;
+}
+
+.invalid {
+  display:none;
+}
 
 #results {
 	border-radius:10px;
@@ -12,7 +19,6 @@ body {
 }
 
 .titles {
-	background-color:;
 	display:none;
 }
 
