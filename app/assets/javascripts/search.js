@@ -1,7 +1,8 @@
 var fstack = [];
 var pstack = [];
 var videos = [];
-var temp = -1;
+var curPos = -1;
+var actualPos = -1;
 var player;
 var shuffle = (function() { return $('#shuffle').is(":checked"); });
 
@@ -33,23 +34,39 @@ function playSong(songNumber) {
 
 function nextSong() {
   if (fstack.length > 0) {
-    pstack.push(temp);
-    temp = fstack.pop();
-    playSong(temp);
+    pstack.push(curPos);
+    curPos = fstack.pop();
+    playSong(curPos);
   }
   else {
-    $.getJSON('music.json', null, function(data) {
-      var rand = Math.floor(Math.random()*data);
-      var song = $("#video-" + rand);
-      if (temp == -1) {
-        temp = rand;
+    if (shuffle()) {
+      $.getJSON('music.json', null, function(data) {
+        var rand = Math.floor(Math.random()*data);
+        var song = $("#video-" + rand);
+        if (curPos == -1) {
+          curPos = rand;
+        }
+        else {
+          pstack.push(curPos);
+          curPos = rand;
+        }
+        playSong(rand);
+      });
+    }
+    else {
+      artistSongs = $("#video-" + curPos).parent().parent().children();
+      for (var i = 0; i < artistSongs.length; i++) {
+        var elemid = artistSongs.eq(i).children().eq(3).attr("id");
+        if (elemid.substring(elemid.indexOf("-")+1) == curPos)
+          actualPos = i;
       }
-      else {
-        pstack.push(temp);
-        temp = rand;
-      }
-      playSong(rand);
-    });
+      pstack.push(curPos);
+      if (actualPos == artistSongs.length-1)
+        curPos = curPos - (artistSongs.length-1);
+      else
+        curPos++;
+      playSong(curPos);
+    }
   }
 }
 
@@ -57,8 +74,8 @@ function prevSong() {
   if (pstack.length > 0) {
     var prevSong = pstack.pop();
     playSong(prevSong);
-    fstack.push(temp);
-    temp = prevSong;
+    fstack.push(curPos);
+    curPos = prevSong;
   }
 }
 
@@ -70,36 +87,30 @@ function removePlayers() {
       iframe.parent().parent().hide();
       iframe.replaceWith("<div id='video-" + videos[i] + "'></div>");
     }
+    videos = [];
   }
 }
 
 function onPlayerReady(event) {
-  console.log("ready for blastoff!");
   event.target.playVideo();
-  console.log(event.target.c.id);
 }
 
 function onPlayerStateChange(event) {
-  console.log(event.data);
-  if (shuffle()) {
-    if (event.data == YT.PlayerState.ENDED) {
-      removePlayers();
-      setTimeout(nextSong(), 3000);
-    }
-  } 
+  if (event.data == YT.PlayerState.ENDED) {
+    removePlayers();
+    setTimeout(nextSong(), 3000);
+  }
 }
 
 $(".back").click(function() {
   if (pstack.length > 0)
     removePlayers();
-  if (shuffle())
-    setTimeout(prevSong(), 3000);
+  setTimeout(prevSong(), 3000);
 });
 
 $(".forward").click(function() {
   removePlayers();
-  if (shuffle())
-    setTimeout(nextSong(), 3000);
+  setTimeout(nextSong(), 3000);
 });
 
 $(".artist").click(function() {
@@ -111,31 +122,30 @@ $(".artist").click(function() {
   else {
     titles.show();
   }
-  
 });
 
 $('#shuffle').click(function() {
-  if (shuffle())
+  if (shuffle()) {
+    curPos = -1;
+    fstack = [];
+    pstack = [];
     nextSong();
+  }
 });
 
 $('#results .titles').on('click', 'a', function(event) {
   event.preventDefault();
-  var vidurl = $.trim($(this).siblings(".videourl").text());
   var video = $(this).siblings('div[id^="video"]');
   var elemid = video.attr("id");
-  videos.push(elemid.substring(elemid.indexOf("-")+1)); // puts id number on array
-  var videoid = video.attr('id');
-  player = new YT.Player(videoid, {
-      height: '390',
-      width: '540',
-      videoId: vidurl,
-      events: {
-        'onReady': onPlayerReady,
-        'onStateChange': onPlayerStateChange
-      }
-  });
-  $(this).css("color", "red");
+  var video_id = elemid.substring(elemid.indexOf("-")+1); // puts id number on array
+  videos.push(video_id);
+  if (shuffle()) {
+    $('#shuffle').removeAttr('checked');
+  }
+  fstack = [];
+  pstack = [];
+  playSong(video_id);
+  curPos = video_id;
 });
 
 $('#searchMusic').on('submit',function(ev) { 
