@@ -21,15 +21,16 @@
         <% end %>
         <div class="song">
         <% if temp == nil %>
-          <%= link_to "Misc", "#", :class => "artist" %><br/>
+          <%= link_to "Misc", "#", :class => "artist" %><a href="#" class="editbtn"></a><br/>
           <div class="titles">
         <% else %>
-          <%= link_to song.artist, "#", :class => "artist" %><br/>
+          <%= link_to song.artist, "#", :class => "artist" %><a href="#" class="editbtn"></a><br/>
           <div class="titles">
         <% end %>
       <% end %>
       <div>
-        <%= link_to song.title.html_safe, "#", :class => "title_link" %><br/>
+        <%= link_to song.title.html_safe, "#", :class => "title_link" %>
+        <a href="#" class="editbtn"></a><br/>
         <div class="videourl">
         <% if !song.yturl.nil? %>
           <%= song.yturl %>

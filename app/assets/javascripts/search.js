@@ -162,3 +162,13 @@ $("#term").keypress(function(e) {
     $("#results").load(loadUrl, "term=" + $("#term").val());
   }
 });
+
+$("a[class!=editbtn]").mouseover(function() {
+  $(".editbtn").hide();
+  $(this).siblings(".editbtn").show();
+  $(this).siblings(".editbtn").html("<image src=\"pencil.png\"/>");
+});
+
+$("a .editbtn").click(function() {
+  event.preventDefault();
+});
